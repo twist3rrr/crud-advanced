@@ -1,0 +1,1 @@
+export default () => <div>No need to be logged in</div>

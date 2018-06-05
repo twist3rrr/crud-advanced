@@ -4,10 +4,10 @@
   "description": "CRUD application with usage of: NEXT.js Mongo.DB JWT React 16.3 Material UI",
   "main": "index.js",
   "scripts": {
-    "build": "babel ./ --ignore ./node_modules,./dist -d dist",
-    "dev": "nodemon --exec babel-node server.js",
-    "start": "node dist/server.js"
-    
+    "dev-server": "nodemon server.js",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "repository": {
     "type": "git",
@@ -20,10 +20,15 @@
   },
   "homepage": "https://github.com/twist3rrr/crud-advanced#readme",
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.49",
-    "@babel/node": "^7.0.0-beta.49",
-    "babel-cli": "^6.26.0",
-    "babel-preset-latest": "^6.24.1",
     "nodemon": "^1.17.5"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
+    "next": "^6.0.3",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
   }
 }

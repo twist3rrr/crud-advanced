@@ -2,12 +2,14 @@ const expressJS = require('express');
 const nextJS = require('next');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const { MongoClient } = require('mongodb');
 /* Helpers */
 const { unless } = require('./helpers');
 /* Constants */
-const { PORT, PAGES_WITHOUT_LOGIN } = require('./constants');
-
+const { DB_LINK, PAGES_WITHOUT_LOGIN, PORT } = require('./constants');
+/* References */
 const app = nextJS();
+let database;
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
@@ -28,10 +30,18 @@ app.prepare().then(() => {
 
     server.get('*', (req, res) => { handle(req, res); });
 
-    console.log(unless);
+    MongoClient.connect(
+        DB_LINK,
+        (err, client) => {
+            if (err) throw err;
 
-    server.listen(PORT, (err) => {
-        if (err) throw err;
-        console.log(`Server is ready on port: ${PORT}`);
-    });
+            database = client.db('crud-advanced');
+            console.log('DB is connected');
+
+            server.listen(PORT, (err) => {
+                if (err) throw err;
+                console.log(`Server is ready on port: ${PORT}`);
+            });
+        },
+    );
 });

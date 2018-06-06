@@ -3,7 +3,6 @@ function unless(paths, middleware) {
         let isHave = false;
 
         paths.forEach((path) => {
-            console.log(req.path);
             if (req.path === '/' || path === req.path || req.path.includes(path)) {
                 isHave = true;
             }

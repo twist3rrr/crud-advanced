@@ -1,12 +1,23 @@
 const expressJS = require('express');
+const jwt = require('jsonwebtoken');
+const { MongoClient } = require('mongodb');
 const nextJS = require('next');
+/* Helpers */
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const { MongoClient } = require('mongodb');
-/* Helpers */
 const { unless } = require('./helpers');
 /* Constants */
-const { DB_LINK, PAGES_WITHOUT_LOGIN, PORT } = require('./constants');
+const {
+    AUTH_TOKEN_DATA,
+    AUTH_TOKEN_KEY,
+    AUTH_TOKEN_NAME,
+    DB_LINK,
+    PAGES_WITHOUT_LOGIN,
+    PORT,
+    ROUTES,
+} = require('./constants');
+/* Routes */
+const { loginRoute, simulateAuthRoute } = require('./routes');
 /* References */
 const app = nextJS();
 let database;
@@ -20,15 +31,48 @@ app.prepare().then(() => {
     server.use(cookieParser());
 
     server.use(unless(PAGES_WITHOUT_LOGIN, (req, res, next) => {
-        const token = req.cookies['x-access-token'];
-        if (token) {
-            next();
-        } else {
-            res.redirect('/login');
+        const token = req.cookies[AUTH_TOKEN_NAME];
+        if (token && jwt.verify(token, AUTH_TOKEN_KEY).data === AUTH_TOKEN_DATA) {
+            return next();
         }
+
+        return res.redirect('/login');
     }));
 
+    server.post(ROUTES.LOGIN, (req, res) => loginRoute(req, res, database));
+
+    server.get(ROUTES.SIMULATE_LOGIN, (req, res) => simulateAuthRoute(req, res));
+
     server.get('*', (req, res) => { handle(req, res); });
+
+    // const runServer = (next) => {
+    //     server.listen(PORT, (err) => {
+    //         if (err) return next(err);
+
+    //         console.log(`Server is ready on port: ${PORT}`);
+    //         return next();
+    //     });
+    // };
+
+    // const connectDB = (next) => {
+    //     MongoClient.connect(
+    //         DB_LINK,
+    //         (err, client) => {
+    //             if (err) return next(err);
+
+    //             database = client.db('crud-advanced');
+    //             console.log('DB is connected');
+    //             return next();
+    //         },
+    //     );
+    // };
+
+    // connectDB((err) => {
+    //     if (err) throw err;
+    //     runServer((err) => {
+    //         if (err) throw err;
+    //     });
+    // });
 
     MongoClient.connect(
         DB_LINK,
@@ -37,7 +81,6 @@ app.prepare().then(() => {
 
             database = client.db('crud-advanced');
             console.log('DB is connected');
-
             server.listen(PORT, (err) => {
                 if (err) throw err;
                 console.log(`Server is ready on port: ${PORT}`);
@@ -45,3 +88,4 @@ app.prepare().then(() => {
         },
     );
 });
+

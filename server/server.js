@@ -45,35 +45,6 @@ app.prepare().then(() => {
 
     server.get('*', (req, res) => { handle(req, res); });
 
-    // const runServer = (next) => {
-    //     server.listen(PORT, (err) => {
-    //         if (err) return next(err);
-
-    //         console.log(`Server is ready on port: ${PORT}`);
-    //         return next();
-    //     });
-    // };
-
-    // const connectDB = (next) => {
-    //     MongoClient.connect(
-    //         DB_LINK,
-    //         (err, client) => {
-    //             if (err) return next(err);
-
-    //             database = client.db('crud-advanced');
-    //             console.log('DB is connected');
-    //             return next();
-    //         },
-    //     );
-    // };
-
-    // connectDB((err) => {
-    //     if (err) throw err;
-    //     runServer((err) => {
-    //         if (err) throw err;
-    //     });
-    // });
-
     MongoClient.connect(
         DB_LINK,
         (err, client) => {
@@ -81,6 +52,7 @@ app.prepare().then(() => {
 
             database = client.db('crud-advanced');
             console.log('DB is connected');
+
             server.listen(PORT, (err) => {
                 if (err) throw err;
                 console.log(`Server is ready on port: ${PORT}`);

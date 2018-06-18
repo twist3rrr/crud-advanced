@@ -16,6 +16,14 @@ function unless(paths, middleware) {
     };
 }
 
+function findMatchShape(collection, shape, next) {
+    collection.find({ ...shape }).toArray((err, users) => {
+        if (err) throw err;
+        next(users);
+    });
+}
+
 module.exports = {
+    findMatchShape,
     unless,
 };

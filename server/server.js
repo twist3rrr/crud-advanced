@@ -2,22 +2,27 @@ const expressJS = require('express');
 const jwt = require('jsonwebtoken');
 const { MongoClient } = require('mongodb');
 const nextJS = require('next');
+
 /* Helpers */
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { unless } = require('./helpers');
+
 /* Constants */
 const {
     AUTH_TOKEN_DATA,
     AUTH_TOKEN_KEY,
     AUTH_TOKEN_NAME,
     DB_LINK,
+    DB_NAME,
     PAGES_WITHOUT_LOGIN,
     PORT,
     ROUTES,
 } = require('./constants');
+
 /* Routes */
-const { loginRoute, simulateAuthRoute } = require('./routes');
+const { loginRoute, registrationRoute, simulateAuthRoute } = require('./routes');
+
 /* References */
 const app = nextJS();
 let database;
@@ -36,10 +41,12 @@ app.prepare().then(() => {
             return next();
         }
 
-        return res.redirect('/login');
+        return res.redirect(ROUTES.LOGIN_PAGE);
     }));
 
     server.post(ROUTES.LOGIN, (req, res) => loginRoute(req, res, database));
+
+    server.post(ROUTES.REGISTRATION, (req, res) => registrationRoute(req, res, database));
 
     server.get(ROUTES.SIMULATE_LOGIN, (req, res) => simulateAuthRoute(req, res));
 
@@ -50,7 +57,7 @@ app.prepare().then(() => {
         (err, client) => {
             if (err) throw err;
 
-            database = client.db('crud-advanced');
+            database = client.db(DB_NAME);
             console.log('DB is connected');
 
             server.listen(PORT, (err) => {

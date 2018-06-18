@@ -8,6 +8,7 @@ const DB_NAME = 'crud-advanced';
 const PAGES_WITHOUT_LOGIN = ['_next', '/login', 'auth'];
 const PORT = 3000;
 const ROUTES = {
+    GET_USERS: '/getusers',
     LOGIN: '/auth/login',
     LOGIN_PAGE: '/login',
     REGISTRATION: '/registration',

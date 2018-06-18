@@ -7,6 +7,16 @@ const {
 const { findMatchShape } = require('./helpers');
 const jwt = require('jsonwebtoken');
 
+const getUsersRoute = (req, res, database) => {
+    const usersCollection = database.collection('users');
+
+    usersCollection.find({}, { _id: 0 }).toArray((err, docs) => {
+        if (err || !docs.length) return res.sendStatus(401);
+
+        return res.send(JSON.stringify(docs));
+    });
+};
+
 const loginRoute = (req, res, database) => {
     const { email, password } = req.body;
     const usersCollection = database.collection('users');
@@ -46,6 +56,7 @@ const simulateAuthRoute = (req, res) => {
 };
 
 module.exports = {
+    getUsersRoute,
     loginRoute,
     registrationRoute,
     simulateAuthRoute,

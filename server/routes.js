@@ -17,6 +17,19 @@ const getUsersRoute = (req, res, database) => {
     });
 };
 
+const deleteUserRoute = (req, res, database) => {
+    const { email } = req.body;
+    const usersCollection = database.collection('users');
+
+    usersCollection.findOneAndDelete({ email }, (err, result) => {
+        if (err) return res.sendStatus(400);
+
+        if (result.value === null) return res.sendStatus(500);
+
+        return res.sendStatus(200);
+    });
+};
+
 const loginRoute = (req, res, database) => {
     const { email, password } = req.body;
     const usersCollection = database.collection('users');
@@ -56,6 +69,7 @@ const simulateAuthRoute = (req, res) => {
 };
 
 module.exports = {
+    deleteUserRoute,
     getUsersRoute,
     loginRoute,
     registrationRoute,

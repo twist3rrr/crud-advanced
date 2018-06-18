@@ -22,6 +22,7 @@ const {
 
 /* Routes */
 const {
+    deleteUserRoute,
     getUsersRoute,
     loginRoute,
     registrationRoute,
@@ -54,6 +55,8 @@ app.prepare().then(() => {
     server.post(ROUTES.REGISTRATION, (req, res) => registrationRoute(req, res, database));
 
     server.get(ROUTES.GET_USERS, (req, res) => getUsersRoute(req, res, database));
+
+    server.post(ROUTES.DELETE_USER, (req, res) => deleteUserRoute(req, res, database));
 
     server.get(ROUTES.SIMULATE_LOGIN, (req, res) => simulateAuthRoute(req, res));
 

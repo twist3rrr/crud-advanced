@@ -14,6 +14,7 @@ const ROUTES = {
     LOGIN_PAGE: '/login',
     REGISTRATION: '/registration',
     SIMULATE_LOGIN: '/auth/simulateauth',
+    UPDATE_USER: '/updateuser',
 };
 
 module.exports = {

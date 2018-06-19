@@ -10,8 +10,8 @@ const jwt = require('jsonwebtoken');
 const getUsersRoute = (req, res, database) => {
     const usersCollection = database.collection('users');
 
-    usersCollection.find({}, { _id: 0 }).toArray((err, docs) => {
-        if (err || !docs.length) return res.sendStatus(401);
+    usersCollection.find({}).project({ _id: 0 }).toArray((err, docs) => {
+        if (err) return res.sendStatus(500);
 
         return res.send(JSON.stringify(docs));
     });
@@ -25,6 +25,17 @@ const deleteUserRoute = (req, res, database) => {
         if (err) return res.sendStatus(400);
 
         if (result.value === null) return res.sendStatus(500);
+
+        return res.sendStatus(200);
+    });
+};
+
+const updateUserRoute = (req, res, database) => {
+    const { email } = req.body;
+    const usersCollection = database.collection('users');
+
+    usersCollection.findOneAndUpdate({ email }, { $set: { ...req.body } }, (err, result) => {
+        if (err || result.value === null) return res.sendStatus(400);
 
         return res.sendStatus(200);
     });
@@ -51,8 +62,9 @@ const registrationRoute = (req, res, database) => {
 
     findMatchShape(usersCollection, { email }, (users) => {
         if (!users.length && email && password) {
-            return usersCollection.insertOne({ email, password }, (err) => {
+            return usersCollection.insertOne({ ...req.body }, (err) => {
                 if (err) return res.sendStatus(500);
+
                 return res.sendStatus(200);
             });
         }
@@ -61,6 +73,8 @@ const registrationRoute = (req, res, database) => {
     });
 };
 
+
+// TODO: It is only for testing
 const simulateAuthRoute = (req, res) => {
     const token = jwt.sign({ data: AUTH_TOKEN_DATA }, AUTH_TOKEN_KEY);
     return res
@@ -74,4 +88,5 @@ module.exports = {
     loginRoute,
     registrationRoute,
     simulateAuthRoute,
+    updateUserRoute,
 };

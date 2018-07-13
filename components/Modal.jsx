@@ -10,6 +10,7 @@ function Modal(props) {
     const {
         children,
         contentClass,
+        fullWidth,
         handleClose,
         open,
         title,
@@ -23,12 +24,11 @@ function Modal(props) {
     return (
         <div>
             <Dialog
+                {...{ fullWidth }}
                 open={open}
                 TransitionComponent={Transition}
                 keepMounted
                 onClose={handleClose && handleClose}
-                aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description"
             >
                 <DialogTitle id="alert-dialog-slide-title" className={titleClass}>
                     { title }
@@ -44,6 +44,7 @@ function Modal(props) {
 Modal.propTypes = {
     contentClass: PropTypes.string,
     children: PropTypes.element.isRequired,
+    fullWidth: PropTypes.bool,
     handleClose: PropTypes.func,
     open: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
@@ -52,6 +53,7 @@ Modal.propTypes = {
 
 Modal.defaultProps = {
     contentClass: '',
+    fullWidth: false,
     handleClose: () => true,
     titleClass: '',
 };

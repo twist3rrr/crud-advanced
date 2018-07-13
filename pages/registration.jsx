@@ -13,7 +13,7 @@ import Switch from '@material-ui/core/Switch';
 import Modal from '../components/Modal';
 import TextField from '../components/formComponents/TextField';
 
-import '../styles.scss';
+import '../styles/main.scss';
 
 export default () => {
     return (

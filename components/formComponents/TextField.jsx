@@ -9,7 +9,9 @@ import FormControl from '@material-ui/core/FormControl';
 function TextField(props) {
     const {
         onChange,
+        disabled,
         error,
+        fullWidth,
         id,
         label,
         type,
@@ -18,7 +20,11 @@ function TextField(props) {
 
     return (
         <div>
-            <FormControl error={!!error} fullWidth>
+            <FormControl
+                {...disabled && { disabled }}
+                {...error && { error: !!error }}
+                {...{ fullWidth }}
+            >
                 { label && <InputLabel htmlFor={id}>{ label }</InputLabel> }
                 <Input
                     id={id}
@@ -33,10 +39,12 @@ function TextField(props) {
 }
 
 TextField.propTypes = {
+    disabled: PropTypes.bool,
     error: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.object,
     ]),
+    fullWidth: PropTypes.bool,
     id: PropTypes.string.isRequired,
     label: PropTypes.oneOfType([
         PropTypes.string,
@@ -47,15 +55,16 @@ TextField.propTypes = {
         PropTypes.string,
         PropTypes.object,
     ]),
-    value: PropTypes.string,
+    value: PropTypes.string.isRequired,
 };
 
 TextField.defaultProps = {
+    disabled: false,
     error: null,
+    fullWidth: true,
     label: null,
     onChange: () => true,
     type: null,
-    value: '',
 };
 
 export default TextField;

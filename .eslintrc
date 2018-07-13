@@ -1,6 +1,7 @@
 {
     "extends": "airbnb",
     "rules": {
+        "arrow-body-style": 0,
         "indent": ["error", 4],
         "no-shadow": 0,
         "react/jsx-indent": [2, 4],

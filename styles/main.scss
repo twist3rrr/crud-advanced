@@ -1,3 +1,9 @@
 .text-center {
     text-align: center;
 }
+
+[data-shrink=false] + div > input[type=date]{ color: transparent; }
+
+
+
+

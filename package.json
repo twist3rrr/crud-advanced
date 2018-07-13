@@ -41,6 +41,7 @@
     "jsonwebtoken": "^8.2.2",
     "mongodb": "^3.0.10",
     "next": "^6.0.3",
+    "prop-types": "^15.6.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0"
   }

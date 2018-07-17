@@ -1,60 +1,56 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { createField, fieldPresets } from 'react-advanced-form';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
-function RadioGroupField(props) {
-    const {
-        disabled,
-        error,
-        label,
-        onChange,
-        required,
-        value,
-    } = props;
+class RadioGroupField extends Component {
+    render() {
+        const {
+            disabled,
+            fieldProps,
+            fieldState,
+            label,
+        } = this.props;
 
-    return (
-        <div>
-            <FormControl
-                {...disabled && { disabled }}
-                {...required && { required }}
-            >
-                { !!label && <FormLabel>{label}</FormLabel> }
-                <RadioGroup
-                    {...value && { value }}
-                    {...{ onChange }}
+        const { errors, invalid, required } = fieldState;
+
+        return (
+            <div>
+                <FormControl
+                    {...disabled && { disabled }}
+                    {...{ error: !!invalid }}
+                    {...required && { required }}
                 >
-                    { props.children }
-                </RadioGroup>
-                { !!error && <FormHelperText>{error}</FormHelperText>}
-            </FormControl>
-        </div>
-    );
+                    { !!label && <FormLabel>{label}</FormLabel> }
+                    <RadioGroup
+                        {...{ fieldProps }}
+                    >
+                        { this.props.children }
+                    </RadioGroup>
+                    { !!invalid && errors.map(error => (
+                        <FormHelperText>{ error }</FormHelperText>
+                    ))}
+                </FormControl>
+            </div>
+        );
+    }
 }
 
 RadioGroupField.propTypes = {
     children: PropTypes.element.isRequired,
+    fieldProps: PropTypes.object.isRequired,
+    fieldState: PropTypes.object.isRequired,
     disabled: PropTypes.bool,
-    error: PropTypes.oneOfType([
-        PropTypes.bool,
-        PropTypes.string,
-    ]),
     label: PropTypes.string,
-    onChange: PropTypes.func,
-    required: PropTypes.bool,
-    value: PropTypes.string,
 };
 
 RadioGroupField.defaultProps = {
     disabled: false,
-    error: null,
     label: '',
-    onChange: () => true,
-    required: false,
-    value: '',
 };
 
-export default RadioGroupField;
+export default createField(fieldPresets.radio)(RadioGroupField);

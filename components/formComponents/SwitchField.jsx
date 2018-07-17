@@ -1,64 +1,60 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Switch from '@material-ui/core/Switch';
 
-import PropTypes from 'prop-types';
+import { createField, fieldPresets } from 'react-advanced-form';
 
-function SwitchField(props) {
-    const {
-        checked,
-        disabled,
-        error,
-        label,
-        onChange,
-        required,
-        value,
-    } = props;
+class SwitchField extends Component {
+    render() {
+        const {
+            disabled,
+            fieldProps,
+            fieldState,
+            label,
+        } = this.props;
 
-    return (
-        <div>
-            <FormControl
-                {...disabled && { disabled }}
-                {...error && { error: !!error }}
-                {...required && { required }}
-            >
-                <FormControlLabel
-                    control={
-                        <Switch
-                            {...{ checked }}
-                            {...{ onChange }}
-                            {...{ value }}
-                        />
-                    }
-                    {...label && { label }}
-                />
-                {!!error && <FormHelperText>{ error }</FormHelperText>}
-            </FormControl>
-        </div>
-    );
+        const { required, invalid, errors } = fieldState;
+
+        return (
+            <div>
+                <FormControl
+                    {...{ disabled }}
+                    {...{ error: !!invalid }}
+                    {...{ required }}
+                >
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                {...{ checked: fieldProps.checked }}
+                                {...{ inputProps: { ...fieldProps } }}
+                            />
+                        }
+                        {...label && { label }}
+                    />
+                    { !!invalid && errors.map(error => (
+                        <FormHelperText>{ error }</FormHelperText>
+                    ))}
+                </FormControl>
+            </div>
+        );
+    }
 }
 
 SwitchField.propTypes = {
-    checked: PropTypes.bool.isRequired,
     disabled: PropTypes.bool,
-    error: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.string,
-    ]),
+    fieldProps: PropTypes.object.isRequired,
+    fieldState: PropTypes.object.isRequired,
     label: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-    required: PropTypes.bool,
-    value: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
 };
 
 SwitchField.defaultProps = {
     disabled: false,
-    error: null,
     label: '',
-    required: false,
 };
 
-export default SwitchField;
+export default createField(fieldPresets.checkbox)(SwitchField);

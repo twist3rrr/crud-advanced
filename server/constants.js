@@ -12,7 +12,7 @@ const ROUTES = {
     GET_USERS: '/getusers',
     LOGIN: '/auth/login',
     LOGIN_PAGE: '/login',
-    REGISTRATION: '/registration',
+    REGISTRATION: '/register',
     SIMULATE_LOGIN: '/auth/simulateauth',
     UPDATE_USER: '/updateuser',
 };

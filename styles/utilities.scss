@@ -1,0 +1,6 @@
+.text-center {
+    text-align: center;
+}
+
+// Fix for material ui date field
+[data-shrink=false] + div > input[type=date]{ color: transparent; }

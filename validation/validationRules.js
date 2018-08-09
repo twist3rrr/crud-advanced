@@ -6,6 +6,6 @@ export default {
     name: {
         firstName: ({ value }) => /^[a-z A-Z]+$/.test(value),
         lastName: ({ value }) => /^[a-z A-Z]+$/.test(value),
-        confirmPassword: ({ value, fields }) => (value === fields.password.value),
+        confirmPassword: ({ value, get }) => (value === get(['password', 'value'])),
     },
 };

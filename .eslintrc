@@ -1,4 +1,5 @@
 {
+    "parser": "babel-eslint",
     "extends": "airbnb",
     "rules": {
         "arrow-body-style": 0,
@@ -12,6 +13,8 @@
         "import/no-named-as-default": 0,
         "import/no-extraneous-dependencies": ["error", {
             "devDependencies": true
-        }]
-    }
+        }],
+        "no-unused-expressions": 0
+    },
+    "globals": { "fetch": false }
 }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import Modal from '../components/Modal';
+import JSSProvider from '../components/JSSProvider';
 import RegistrationForm from '../components/forms/RegistrationForm';
 import Snackbar from '../components/Snackbar';
+import Spinner from '../components/Spinner';
 
 import '../styles/main.scss';
 
@@ -13,39 +14,47 @@ export default class extends Component {
             open: false,
             message: 'Message',
             variant: 'success',
-        }
+        },
+        isLoading: false,
     };
 
-    onClose = () => {
+    defaultStateHandler = (newState) => {
+        this.setState({
+            ...newState,
+        });
+    }
+
+    closeSnackbar = () => {
         this.setState((prevState) => {
             return {
                 snackbar: {
                     ...prevState.snackbar,
                     open: false,
-                }
-            }
-        })
-    };
-
-    handleSnackbar = (newSnackbar) => {
-        this.setState({
-            snackbar: newSnackbar
+                },
+            };
         });
     }
 
     render() {
         return (
-            <>
-                <RegistrationForm
-                    handleSnackbar={this.handleSnackbar}
-                />
-                <Snackbar 
-                    {...
-                        this.state.snackbar
-                    }
-                    onClose={this.onClose}
-                />
-            </>
+            <JSSProvider>
+                <div>
+                    <div className="backdrop">
+                        <div className="backdrop__item">
+                            <RegistrationForm
+                                handleSnackbar={this.handleSnackbar}
+                                defaultStateHandler={this.defaultStateHandler}
+                            />
+                        </div>
+                    </div>
+                    <Snackbar
+                        {...this.state.snackbar}
+                        onClose={this.closeSnackbar}
+                    />
+                    { this.state.isLoading && <Spinner /> }
+                </div>
+            </JSSProvider>
         );
     }
-};
+}
+

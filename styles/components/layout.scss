@@ -1,0 +1,38 @@
+.layout {
+    $header-height: 80px;
+    $footer-height: 80px;
+    $layout-background: #eeeeee; 
+    $layout-padding: 24px;
+    $layout-item-padding: 12px;
+
+    display: grid;
+    height: 100vh;
+    padding: $layout-padding;
+    background:  $layout-background;
+    grid-template-areas:
+        'header header header header'
+        'menu main main main'
+        'footer footer footer footer';
+    grid-template-rows:  $header-height 1fr $footer-height;
+
+    &__header {
+        grid-area: header;
+    }
+
+    &__menu {
+        grid-area: menu;
+    }
+
+    &__main {
+        grid-area: main;
+    }
+
+    &__footer {
+        grid-area: footer;
+    }
+
+    & > div {
+        padding:  $layout-item-padding;
+        border: 1px solid black;
+    }
+}

@@ -45,6 +45,7 @@
     "jsonwebtoken": "^8.2.2",
     "mongodb": "^3.0.10",
     "next": "^6.0.3",
+    "normalize-scss": "^7.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.0",
     "react-advanced-form": "^1.3.3",

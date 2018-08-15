@@ -1,3 +1,6 @@
-@import './utilities.scss';
+@import './../node_modules/normalize-scss/sass/normalize/_import-now.scss';
+@import './components/layout.scss';
 @import './components/backdrop.scss';
 @import './components/spinner.scss';
+
+* { box-sizing: border-box };

@@ -18,10 +18,10 @@ export default class extends Component {
         isLoading: false,
     };
 
-    defaultStateHandler = (newState) => {
+    defaultStateHandler = (newState, callback) => {
         this.setState({
             ...newState,
-        });
+        }, callback);
     }
 
     closeSnackbar = () => {
@@ -57,4 +57,3 @@ export default class extends Component {
         );
     }
 }
-

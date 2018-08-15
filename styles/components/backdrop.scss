@@ -15,11 +15,11 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        border-radius: 5px;
         width: 85%;
         max-width: 600px;
-        transform: translate(-50%, -50%);
         padding: 35px 25px;
+        border-radius: 5px;
         background-color: white;
+        transform: translate(-50%, -50%);
     }
 }

@@ -13,6 +13,7 @@ const ROUTES = {
     USERS: '/users',
     LOGIN: '/auth/login',
     LOGIN_PAGE: '/login',
+    REGISTRATION_PAGE: '/registration',
     REGISTRATION: '/auth/register',
     SIMULATE_LOGIN: '/auth/simulateauth',
     UPDATE_USER: '/updateuser',

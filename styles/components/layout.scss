@@ -1,19 +1,15 @@
 .layout {
-    $header-height: 80px;
-    $footer-height: 80px;
     $layout-background: #eeeeee; 
-    $layout-padding: 24px;
     $layout-item-padding: 12px;
 
     display: grid;
     height: 100vh;
-    padding: $layout-padding;
     background:  $layout-background;
     grid-template-areas:
         'header header header header'
         'menu main main main'
         'footer footer footer footer';
-    grid-template-rows:  $header-height 1fr $footer-height;
+    grid-template-rows:  auto 1fr auto;
 
     &__header {
         grid-area: header;

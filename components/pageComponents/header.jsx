@@ -12,12 +12,14 @@ import Button from '@material-ui/core/Button';
 import FolderIcon from '@material-ui/icons/Folder';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-
 import { withStyles } from '@material-ui/core/styles';
 
 import green from '@material-ui/core/colors/green';
 
 const styles = theme => ({
+    appBar: {
+        borderRadius: '5px',
+    },
     button: {
         margin: theme.spacing.unit,
     },
@@ -90,14 +92,12 @@ function Header(props) {
 
     return (
         <div>
-            <AppBar position="static" color="default">
+            <AppBar className={classes.appBar} position="static" color="default">
                 <Toolbar className={classes.toolbar}>
                     <Avatar className={classes.logo}>
                         <FolderIcon />
                     </Avatar>
-                    <Typography
-                        variant="title"
-                    >
+                    <Typography variant="title">
                         CRUD ADVANCED
                     </Typography>
                     <div className={classes.buttonGroup}>

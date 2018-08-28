@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import { withStyles } from '@material-ui/core/styles';
 
 import InputField from '../InputField';
 
@@ -15,12 +14,17 @@ const styles = {
 };
 
 function Sidebar(props) {
-    const { classes } = props;
+    const {
+        defaultStateHandler,
+        lastName,
+    } = props;
 
     return (
-        <Card className={classes.card}>
+        <Card style={styles.card}>
             <InputField
                 label="Filter users"
+                value={lastName}
+                onChange={value => defaultStateHandler({ lastName: value })}
             />
             <Button
                 color="primary"
@@ -36,7 +40,8 @@ function Sidebar(props) {
 }
 
 Sidebar.propTypes = {
-    classes: PropTypes.object.isRequired,
+    defaultStateHandler: PropTypes.func.isRequired,
+    lastName: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(Sidebar);
+export default Sidebar;

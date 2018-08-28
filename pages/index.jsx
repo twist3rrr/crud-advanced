@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
+import { defaultStateHandler } from '../utilities';
 import fetch from 'isomorphic-unfetch';
 
 import JSSProvider from '../components/JSSProvider';
@@ -11,11 +13,20 @@ import Sidebar from './../components/pageComponents/Sidebar';
 import '../styles/main.scss';
 
 export default class Index extends Component {
+    static propTypes = {
+        users: PropTypes.array.isRequired,
+    };
+
+    state = {
+        lastName: '',
+    };
+
     static async getInitialProps() {
         const res = await fetch('http://localhost:3000/getusers');
         let users;
+
         try {
-            users = res.json();
+            users = await res.json();
         } catch (err) {
             users = [];
         }
@@ -25,6 +36,7 @@ export default class Index extends Component {
 
     render() {
         const { users } = this.props;
+        const { lastName } = this.state;
         return (
             <JSSProvider>
                 <div className="layout">
@@ -32,10 +44,20 @@ export default class Index extends Component {
                         <Header />
                     </div>
                     <div className="layout__menu">
-                        <Sidebar />
+                        <Sidebar
+                            {...{
+                                defaultStateHandler: defaultStateHandler(this),
+                                lastName,
+                            }}
+                        />
                     </div>
                     <div className="layout__main">
-                        <Main {...{ users }} />
+                        <Main
+                            {...{
+                                lastName,
+                                users,
+                            }}
+                        />
                     </div>
                     <div className="layout__footer">FOOTER</div>
                 </div>

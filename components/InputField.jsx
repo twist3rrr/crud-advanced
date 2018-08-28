@@ -16,7 +16,7 @@ class TextField extends Component {
             id,
             invalid,
             label,
-            onClick,
+            onChange,
             required,
             value,
         } = this.props;
@@ -35,7 +35,7 @@ class TextField extends Component {
                         {...{ disabled }}
                         {...{ required }}
                         {...value && { value }}
-                        {...onClick && { onClick: e => onClick(e.target.value) }}
+                        {...onChange && { onChange: e => onChange(e.target.value) }}
 
                     />
                     { !!invalid && errors.map(error => (
@@ -58,7 +58,7 @@ TextField.propTypes = {
         PropTypes.string,
         PropTypes.object,
     ]),
-    onClick: PropTypes.func,
+    onChange: PropTypes.func,
     value: PropTypes.string,
 };
 
@@ -70,7 +70,7 @@ TextField.defaultProps = {
     invalid: false,
     required: false,
     label: null,
-    onClick: () => true,
+    onChange: () => true,
     value: '',
 };
 

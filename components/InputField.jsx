@@ -34,7 +34,7 @@ class TextField extends Component {
                         id={id}
                         {...{ disabled }}
                         {...{ required }}
-                        {...value && { value }}
+                        {...{ value }}
                         {...onChange && { onChange: e => onChange(e.target.value) }}
 
                     />

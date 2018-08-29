@@ -16,15 +16,15 @@ const styles = {
 function Sidebar(props) {
     const {
         defaultStateHandler,
-        lastName,
+        userName,
     } = props;
 
     return (
         <Card style={styles.card}>
             <InputField
                 label="Filter users"
-                value={lastName}
-                onChange={value => defaultStateHandler({ lastName: value })}
+                value={userName}
+                onChange={value => defaultStateHandler({ userName: value })}
             />
             <Button
                 color="primary"
@@ -41,7 +41,7 @@ function Sidebar(props) {
 
 Sidebar.propTypes = {
     defaultStateHandler: PropTypes.func.isRequired,
-    lastName: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
 };
 
 export default Sidebar;

@@ -18,7 +18,7 @@ export default class Index extends Component {
     };
 
     state = {
-        lastName: '',
+        userName: '',
     };
 
     static async getInitialProps() {
@@ -36,7 +36,7 @@ export default class Index extends Component {
 
     render() {
         const { users } = this.props;
-        const { lastName } = this.state;
+        const { userName } = this.state;
         return (
             <JSSProvider>
                 <div className="layout">
@@ -47,14 +47,14 @@ export default class Index extends Component {
                         <Sidebar
                             {...{
                                 defaultStateHandler: defaultStateHandler(this),
-                                lastName,
+                                userName,
                             }}
                         />
                     </div>
                     <div className="layout__main">
                         <Main
                             {...{
-                                lastName,
+                                userName,
                                 users,
                             }}
                         />

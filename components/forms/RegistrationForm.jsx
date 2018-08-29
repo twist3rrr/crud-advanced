@@ -13,6 +13,7 @@ import validationMessages from '../../validation/validationMessages';
 import validationRules from '../../validation/validationRules';
 // Custom fields
 // import RadioField from '../formComponents/Radio/RadioField';
+import RadioField from '../formComponents/Radio/RadioField';
 import SwitchField from '../formComponents/SwitchField';
 import TextField from '../formComponents/TextField';
 // Constants
@@ -115,7 +116,8 @@ export default function RegistrationForm(props) {
                     name="isStudent"
                     defaultChecked
                 />
-                {/* <RadioField
+                <RadioField
+                    defaultChecked
                     value="man"
                     name="gender"
                     label="Man"
@@ -124,7 +126,7 @@ export default function RegistrationForm(props) {
                     value="woman"
                     name="gender"
                     label="Woman"
-                /> */}
+                />
                 <TextField
                     required
                     id="password"

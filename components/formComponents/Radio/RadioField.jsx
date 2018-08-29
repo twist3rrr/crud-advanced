@@ -10,10 +10,12 @@ import Radio from './Radio';
 function ReadioField(props) {
     const {
         color,
+        defaultChecked,
         disabled,
         label,
         value,
         id,
+        name,
     } = props;
 
     return (
@@ -23,6 +25,8 @@ function ReadioField(props) {
             control={
                 <Radio
                     {...{
+                        ...defaultChecked && { checked: defaultChecked },
+                        name,
                         color,
                         value,
                         id,
@@ -35,13 +39,16 @@ function ReadioField(props) {
 
 ReadioField.propTypes = {
     color: PropTypes.string.isRequired,
+    defaultChecked: PropTypes.bool,
     disabled: PropTypes.bool,
     label: PropTypes.string,
+    name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     id: PropTypes.string,
 };
 
 ReadioField.defaultProps = {
+    defaultChecked: false,
     disabled: false,
     id: '',
     label: '',

@@ -48,7 +48,7 @@ const loginRoute = (req, res, database) => {
     usersCollection.find({ email, password }).toArray((err, docs) => {
         if (err || !docs.length) return res.sendStatus(401);
 
-        const token = jwt.sign({ data: AUTH_TOKEN_DATA }, AUTH_TOKEN_KEY);
+        const token = jwt.sign({ data: email }, AUTH_TOKEN_KEY);
 
         return res
             .cookie(AUTH_TOKEN_NAME, token, { maxAge: 31536000000, httpOnly: true })

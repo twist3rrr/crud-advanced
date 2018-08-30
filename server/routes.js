@@ -7,14 +7,23 @@ const {
 const { findMatchShape } = require('./helpers');
 const jwt = require('jsonwebtoken');
 
-const getUsersRoute = (req, res, database) => {
+const getUsersRoute = async (req, res, database) => {
     const usersCollection = database.collection('users');
+    const { page, items } = req.query;
 
-    usersCollection.find({}).project({ _id: 0 }).toArray((err, docs) => {
-        if (err) return res.sendStatus(500);
+    const skip = (page - 1) * items;
 
-        return res.send(JSON.stringify(docs));
-    });
+    const total = await usersCollection.find({}).count();
+
+    usersCollection.find({})
+        .skip(Number(skip))
+        .limit(Number(items))
+        .project({ _id: 0 })
+        .toArray((err, docs) => {
+            if (err) return res.sendStatus(500);
+
+            return res.send(JSON.stringify({ users: docs, total }));
+        });
 };
 
 const deleteUserRoute = (req, res, database) => {

@@ -17,26 +17,45 @@ export default class Index extends Component {
         users: PropTypes.array.isRequired,
     };
 
-    state = {
-        userName: '',
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            amountOfUsers: props.total,
+            currentPage: 1,
+            itemsOnPage: 3,
+            loadedPages: 1,
+            users: props.users,
+            userName: '',
+        };
+    }
 
     static async getInitialProps() {
-        const res = await fetch('http://localhost:3000/getusers');
+        const res = await fetch(`http://localhost:3000/getusers?page=${1}&items=${3}`);
         let users;
+        let total;
 
         try {
-            users = await res.json();
+            const parsed = await res.json();
+            users = parsed.users;
+            total = parsed.total;
         } catch (err) {
             users = [];
+            total = 0;
         }
 
-        return { users };
+        return { users, total };
     }
 
     render() {
-        const { users } = this.props;
-        const { userName } = this.state;
+        const {
+            amountOfUsers,
+            currentPage,
+            itemsOnPage,
+            loadedPages,
+            userName,
+            users,
+        } = this.state;
+
         return (
             <JSSProvider>
                 <div className="layout">
@@ -54,6 +73,10 @@ export default class Index extends Component {
                     <div className="layout__main">
                         <Main
                             {...{
+                                amountOfUsers,
+                                currentPage,
+                                itemsOnPage,
+                                loadedPages,
                                 userName,
                                 users,
                             }}

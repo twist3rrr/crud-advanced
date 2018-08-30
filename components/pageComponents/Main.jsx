@@ -37,18 +37,20 @@ function Main(props) {
 
     return (
         <div className="main">
-            {isUsers
-                ? filterUsers().map(user => <Card {...user} {...{ key: uuid() }} />)
-                : (
-                    <Typography
-                        variant="title"
-                        color="inherit"
-                        className="main__heading"
-                    >
-                        There is no users in the list
-                    </Typography>
-                )
-            }
+            <div className="main__inner">
+                {isUsers
+                    ? filterUsers().map(user => <Card {...user} {...{ key: uuid() }} />)
+                    : (
+                        <Typography
+                            variant="title"
+                            color="inherit"
+                            className="main__heading"
+                        >
+                            There is no users in the list
+                        </Typography>
+                    )
+                }
+            </div>
         </div>
     );
 }

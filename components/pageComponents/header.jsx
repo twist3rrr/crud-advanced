@@ -12,16 +12,15 @@ import Button from '@material-ui/core/Button';
 import FolderIcon from '@material-ui/icons/Folder';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 
 import green from '@material-ui/core/colors/green';
 
-const styles = theme => ({
+const styles = {
     appBar: {
         borderRadius: '5px',
     },
     button: {
-        margin: theme.spacing.unit,
+        margin: '5px',
     },
     buttonGroup: {
         marginLeft: 'auto',
@@ -35,13 +34,10 @@ const styles = theme => ({
         paddingLeft: '5px',
         paddingRight: '5px',
     },
-});
+};
 
 function Header(props) {
-    const {
-        classes,
-        isLoggedIn,
-    } = props;
+    const { isLoggedIn } = props;
 
     const renderLoginButton = () => {
         return (
@@ -51,7 +47,7 @@ function Header(props) {
                 href={ROUTES.LOGIN_PAGE}
             >
                 <Button
-                    className={classes.button}
+                    style={styles.button}
                     variant="contained"
                     color="primary"
                 >
@@ -64,7 +60,7 @@ function Header(props) {
     const renderLogoutButton = () => {
         return (
             <Button
-                className={classes.button}
+                style={styles.button}
                 variant="contained"
                 color="secondary"
             >
@@ -81,7 +77,7 @@ function Header(props) {
                 href={ROUTES.REGISTRATION_PAGE}
             >
                 <Button
-                    className={classes.button}
+                    style={styles.button}
                     variant="contained"
                 >
                     Register
@@ -92,15 +88,15 @@ function Header(props) {
 
     return (
         <div>
-            <AppBar className={classes.appBar} position="static" color="default">
-                <Toolbar className={classes.toolbar}>
-                    <Avatar className={classes.logo}>
+            <AppBar style={styles.appBar} position="static" color="default">
+                <Toolbar style={styles.toolbar}>
+                    <Avatar style={styles.logo}>
                         <FolderIcon />
                     </Avatar>
                     <Typography variant="title">
                         CRUD ADVANCED
                     </Typography>
-                    <div className={classes.buttonGroup}>
+                    <div style={styles.buttonGroup}>
                         {
                             isLoggedIn
                                 ? renderLogoutButton()
@@ -114,7 +110,6 @@ function Header(props) {
 }
 
 Header.propTypes = {
-    classes: PropTypes.object.isRequired,
     isLoggedIn: PropTypes.bool,
 };
 
@@ -122,4 +117,4 @@ Header.defaultProps = {
     isLoggedIn: false,
 };
 
-export default withStyles(styles)(Header);
+export default Header;

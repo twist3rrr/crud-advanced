@@ -10,7 +10,6 @@ const { unless } = require('./helpers');
 
 /* Constants */
 const {
-    AUTH_TOKEN_DATA,
     AUTH_TOKEN_KEY,
     AUTH_TOKEN_NAME,
     DB_LINK,
@@ -44,11 +43,20 @@ app.prepare().then(() => {
 
     server.use(unless(PAGES_WITHOUT_LOGIN, (req, res, next) => {
         const token = req.cookies[AUTH_TOKEN_NAME];
-        if (token && jwt.verify(token, AUTH_TOKEN_KEY).data === AUTH_TOKEN_DATA) {
-            return next();
-        }
 
-        return res.redirect(ROUTES.LOGIN_PAGE);
+        if (token) {
+            const email = jwt.verify(token, AUTH_TOKEN_KEY).data;
+
+            const usersCollection = database.collection('users');
+
+            usersCollection.find({ email }).project({ _id: 0 }).toArray((err, docs) => {
+                if (err || !docs.length) return res.redirect(ROUTES.LOGIN_PAGE);
+
+                return next();
+            });
+        } else {
+            res.redirect(ROUTES.LOGIN_PAGE);
+        }
     }));
 
     server.post(ROUTES.LOGIN, (req, res) => loginRoute(req, res, database));

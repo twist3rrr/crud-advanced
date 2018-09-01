@@ -10,7 +10,7 @@ const PORT = 3000;
 const ROUTES = {
     DELETE_USER: '/deleteuser',
     GET_USERS: '/getusers',
-    USERS: '/users',
+    USERS: '/',
     LOGIN: '/auth/login',
     LOGIN_PAGE: '/login',
     REGISTRATION_PAGE: '/registration',

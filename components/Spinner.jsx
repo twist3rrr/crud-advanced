@@ -3,7 +3,7 @@ import React from 'react';
 export default () => {
     return (
         <div className="backdrop">
-            <div className="backdrop__item">
+            <div className="backdrop__item backdrop__item--without-bg">
                 <div className="spinner">
                     <div className="rect1" />
                     <div className="rect2" />

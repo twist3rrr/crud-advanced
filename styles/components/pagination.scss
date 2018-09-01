@@ -1,0 +1,9 @@
+@import './../node_modules/rc-pagination/assets/index.css';
+
+.pagination {
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

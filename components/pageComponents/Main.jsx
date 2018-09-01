@@ -4,59 +4,55 @@ import PropTypes from 'prop-types';
 import uuid from 'uuid';
 
 import Typography from '@material-ui/core/Typography';
+
 import Card from '../Card';
+import Pagination from 'rc-pagination';
 
 function Main(props) {
-    const { userName, users } = props;
+    const {
+        amountOfUsers,
+        currentPage,
+        itemsOnPage,
+        users,
+    } = props;
+
     const isUsers = users.length;
 
-    const filterUsers = () => {
-        const splittedUserName = userName.split(' ');
-
-        if (splittedUserName.length >= 1) {
-            const formattedFirstName = splittedUserName[0].toLowerCase();
-            const formattedLastName = splittedUserName[1] && splittedUserName[1].toLowerCase();
-
-            return users.filter((user) => {
-                return (splittedUserName.length === 1)
-                    ? (
-                        user.firstName.toLowerCase().includes(formattedFirstName) ||
-                        user.lastName.toLowerCase().includes(formattedFirstName)
-                    )
-                    : (
-                        (user.firstName.toLowerCase().includes(formattedFirstName) &&
-                        user.lastName.toLowerCase().includes(formattedLastName)) ||
-                        (user.firstName.toLowerCase().includes(formattedLastName) &&
-                        user.lastName.toLowerCase().includes(formattedFirstName))
-                    );
-            });
-        }
-
-        return users;
+    const mapUsers = () => {
+        return isUsers
+            ? users.map(user => <Card {...user} {...{ key: uuid() }} />)
+            : (
+                <Typography
+                    variant="title"
+                    color="inherit"
+                    className="main__heading"
+                >
+                    There is no users in the list
+                </Typography>
+            );
     };
 
     return (
         <div className="main">
             <div className="main__inner">
-                {isUsers
-                    ? filterUsers().map(user => <Card {...user} {...{ key: uuid() }} />)
-                    : (
-                        <Typography
-                            variant="title"
-                            color="inherit"
-                            className="main__heading"
-                        >
-                            There is no users in the list
-                        </Typography>
-                    )
-                }
+                { mapUsers() }
+            </div>
+            <div className="main__pagination pagination__container">
+                <Pagination
+                    onChange={(current) => console.log(current)} 
+                    current={currentPage} 
+                    total={amountOfUsers}
+                    pageSize={itemsOnPage}
+                />
             </div>
         </div>
     );
 }
 
 Main.propTypes = {
-    userName: PropTypes.string.isRequired,
+    amountOfUsers: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    itemsOnPage: PropTypes.number.isRequired,
     users: PropTypes.array.isRequired,
 };
 

@@ -21,5 +21,9 @@
         border-radius: 5px;
         background-color: white;
         transform: translate(-50%, -50%);
+
+        &--without-bg {
+            background-color: transparent;
+        }
     }
 }

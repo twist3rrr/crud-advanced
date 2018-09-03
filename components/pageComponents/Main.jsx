@@ -12,6 +12,7 @@ function Main(props) {
     const {
         amountOfUsers,
         currentPage,
+        fetchCurrentPageUsers,
         itemsOnPage,
         users,
     } = props;
@@ -39,8 +40,8 @@ function Main(props) {
             </div>
             <div className="main__pagination pagination__container">
                 <Pagination
-                    onChange={(current) => console.log(current)} 
-                    current={currentPage} 
+                    onChange={current => fetchCurrentPageUsers(current)}
+                    current={currentPage}
                     total={amountOfUsers}
                     pageSize={itemsOnPage}
                 />
@@ -53,6 +54,7 @@ Main.propTypes = {
     amountOfUsers: PropTypes.number.isRequired,
     currentPage: PropTypes.number.isRequired,
     itemsOnPage: PropTypes.number.isRequired,
+    fetchCurrentPageUsers: PropTypes.func.isRequired,
     users: PropTypes.array.isRequired,
 };
 

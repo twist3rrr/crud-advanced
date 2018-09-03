@@ -25,7 +25,6 @@ const {
     getUsersRoute,
     loginRoute,
     registrationRoute,
-    simulateAuthRoute,
     updateUserRoute,
 } = require('./routes');
 
@@ -68,8 +67,6 @@ app.prepare().then(() => {
     server.post(ROUTES.DELETE_USER, (req, res) => deleteUserRoute(req, res, database));
 
     server.post(ROUTES.UPDATE_USER, (req, res) => updateUserRoute(req, res, database));
-
-    server.get(ROUTES.SIMULATE_LOGIN, (req, res) => simulateAuthRoute(req, res));
 
     server.get('*', (req, res) => { handle(req, res); });
 

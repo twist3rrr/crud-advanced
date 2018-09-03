@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { defaultStateHandler } from '../utilities';
-import url from 'url';
+import { defaultStateHandler, buildGetUsersUrl } from '../utilities';
 import fetch from 'isomorphic-unfetch';
 
 import JSSProvider from '../components/JSSProvider';
@@ -11,8 +10,6 @@ import Header from './../components/pageComponents/Header';
 import Main from './../components/pageComponents/Main';
 import Sidebar from './../components/pageComponents/Sidebar';
 import Spinner from './../components/Spinner';
-
-import { DOMEN } from '../server/constants.js';
 
 import '../styles/main.scss';
 
@@ -39,20 +36,35 @@ export default class Index extends Component {
     }
 
     static async getInitialProps() {
-        const res = await fetch(`http://localhost:3000/getusers?page=${1}&items=${config.itemsOnPage}`);
+        const res = await fetch(buildGetUsersUrl(1, config.itemsOnPage, ''));
         let users;
         let total;
 
         try {
             const parsed = await res.json();
-            users = parsed.users;
-            total = parsed.total;
+            ({ users, total } = parsed);
         } catch (err) {
             users = [];
             total = 0;
         }
 
         return { users, total };
+    }
+
+    fetchCurrentPageUsers = async (page) => {
+        this.setState({ isLoading: true });
+        const res = await fetch(buildGetUsersUrl(page, config.itemsOnPage, this.state.userName));
+        console.log(res.status);
+        const parsed = await res.json();
+
+        const { users, total } = parsed;
+
+        this.setState({
+            amountOfUsers: total,
+            currentPage: page,
+            isLoading: false,
+            users,
+        });
     }
 
     render() {
@@ -65,19 +77,6 @@ export default class Index extends Component {
             userName,
             users,
         } = this.state;
-
-        const fetchUrl = url.format({
-            pathname: 'users',
-            protocol: 'http:',
-            host: DOMEN,
-            query: {
-                page: 1,
-                items: config.itemsOnPage,
-                filterName: 'Roman Pylyp',
-            },
-        });
-
-        console.log(fetchUrl);
 
         return (
             <JSSProvider>
@@ -99,6 +98,7 @@ export default class Index extends Component {
                                 amountOfPages,
                                 amountOfUsers,
                                 currentPage,
+                                fetchCurrentPageUsers: this.fetchCurrentPageUsers,
                                 itemsOnPage,
                                 loadedPages,
                                 userName,

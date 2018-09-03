@@ -1,6 +1,5 @@
 /** @see ServerConstants */
 
-const AUTH_TOKEN_DATA = 'shhhhhhhhwerewhrhhhwerhhwr';
 const AUTH_TOKEN_KEY = 'shhhhh';
 const AUTH_TOKEN_NAME = 'x-access-token';
 const DB_LINK = 'mongodb://crud-advanced-user:1q2w3e4r5t@ds147450.mlab.com:47450/crud-advanced';
@@ -21,7 +20,6 @@ const ROUTES = {
 };
 
 module.exports = {
-    AUTH_TOKEN_DATA,
     AUTH_TOKEN_NAME,
     AUTH_TOKEN_KEY,
     DB_LINK,

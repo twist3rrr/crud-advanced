@@ -1,5 +1,4 @@
 const {
-    AUTH_TOKEN_DATA,
     AUTH_TOKEN_KEY,
     AUTH_TOKEN_NAME,
 } = require('./constants');
@@ -82,20 +81,10 @@ const registrationRoute = (req, res, database) => {
     });
 };
 
-
-// TODO: It is only for testing
-const simulateAuthRoute = (req, res) => {
-    const token = jwt.sign({ data: AUTH_TOKEN_DATA }, AUTH_TOKEN_KEY);
-    return res
-        .cookie(AUTH_TOKEN_NAME, token, { maxAge: 31536000000, httpOnly: true })
-        .send('You are autorized');
-};
-
 module.exports = {
     deleteUserRoute,
     getUsersRoute,
     loginRoute,
     registrationRoute,
-    simulateAuthRoute,
     updateUserRoute,
 };

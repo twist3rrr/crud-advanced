@@ -10,7 +10,7 @@ import '../styles/main.scss';
 export default class extends Component {
     state = {
         snackbar: {
-            autohideDuration: 5000,
+            autohideDuration: 2000,
             open: false,
             message: 'Message',
             variant: 'success',

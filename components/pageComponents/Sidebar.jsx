@@ -16,6 +16,7 @@ const styles = {
 function Sidebar(props) {
     const {
         handleInputChange,
+        isLoggedIn,
         userName,
     } = props;
 
@@ -26,21 +27,25 @@ function Sidebar(props) {
                 value={userName}
                 onChange={value => handleInputChange(value)}
             />
-            <Button
-                color="primary"
-                fullWidth
-                style={{ marginTop: 20 }}
-                variant="contained"
-            >
-                Ceate new user
-                <AddIcon style={{ marginLeft: '10px' }} />
-            </Button>
+            {
+                isLoggedIn &&
+                <Button
+                    color="primary"
+                    fullWidth
+                    style={{ marginTop: 20 }}
+                    variant="contained"
+                >
+                    Ceate new user
+                    <AddIcon style={{ marginLeft: '10px' }} />
+                </Button>
+            }
         </Card>
     );
 }
 
 Sidebar.propTypes = {
     handleInputChange: PropTypes.func.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
     userName: PropTypes.string.isRequired,
 };
 

@@ -14,7 +14,7 @@ export default class extends Component {
         super(props);
         this.state = {
             snackbar: {
-                autohideDuration: 5000,
+                autohideDuration: 2000,
                 open: false,
                 message: 'Message',
                 variant: 'success',

@@ -153,6 +153,7 @@ export default class Index extends Component {
                         <Sidebar
                             {...{
                                 handleInputChange: this.handleInputChange,
+                                isLoggedIn,
                                 userName,
                             }}
                         />

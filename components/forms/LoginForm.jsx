@@ -22,7 +22,7 @@ export default function LoginForm(props) {
         defaultStateHandler({
             isLoading: false,
             snackbar: {
-                autohideDuration: 4000,
+                autohideDuration: 2000,
                 open: true,
                 message: 'You are successfully logged in',
                 variant: 'success',
@@ -30,7 +30,7 @@ export default function LoginForm(props) {
         }, () => {
             setTimeout(() => {
                 Router.push(ROUTES.USERS);
-            }, 6000);
+            }, 3000);
         });
     }
 
@@ -38,7 +38,7 @@ export default function LoginForm(props) {
         defaultStateHandler({
             isLoading: false,
             snackbar: {
-                autohideDuration: 4000,
+                autohideDuration: 2000,
                 open: true,
                 message: 'You are not logged in',
                 variant: 'error',

@@ -26,7 +26,7 @@ export default function RegistrationForm(props) {
         defaultStateHandler({
             isLoading: false,
             snackbar: {
-                autohideDuration: 4000,
+                autohideDuration: 2000,
                 open: true,
                 message: 'You are successfully registered',
                 variant: 'success',
@@ -34,7 +34,7 @@ export default function RegistrationForm(props) {
         }, () => {
             setTimeout(() => {
                 Router.push(ROUTES.USERS);
-            }, 6000);
+            }, 3000);
         });
     }
 
@@ -42,7 +42,7 @@ export default function RegistrationForm(props) {
         defaultStateHandler({
             isLoading: false,
             snackbar: {
-                autohideDuration: 4000,
+                autohideDuration: 2000,
                 open: true,
                 message: 'You are not registered',
                 variant: 'error',

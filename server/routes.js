@@ -69,7 +69,7 @@ const loginRoute = (req, res, database) => {
         const token = jwt.sign({ data: email }, AUTH_TOKEN_KEY);
 
         return res
-            .cookie(AUTH_TOKEN_NAME, token, { maxAge: 31536000000, httpOnly: true })
+            .cookie(AUTH_TOKEN_NAME, token, { maxAge: 31536000000, httpOnly: false })
             .sendStatus(200);
     });
 };

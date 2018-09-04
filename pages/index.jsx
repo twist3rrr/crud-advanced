@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { buildGetUsersUrl } from '../utilities';
+
+import Cookies from 'js-cookie';
 import fetch from 'isomorphic-unfetch';
 
 import JSSProvider from '../components/JSSProvider';
@@ -29,6 +31,7 @@ export default class Index extends Component {
         this.state = {
             amountOfUsers: props.total,
             itemsOnPage: config.itemsOnPage,
+            isLoggedIn: !!Cookies.get('x-access-token'),
             isLoading: false,
             currentPage: 1,
             users: props.users,
@@ -134,6 +137,7 @@ export default class Index extends Component {
             amountOfUsers,
             currentPage,
             itemsOnPage,
+            isLoggedIn,
             loadedPages,
             userName,
             users,
@@ -143,7 +147,7 @@ export default class Index extends Component {
             <JSSProvider>
                 <div className="layout">
                     <div className="layout__header">
-                        <Header />
+                        <Header {...{ isLoggedIn }} />
                     </div>
                     <div className="layout__menu">
                         <Sidebar

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Link from 'next/link';
+import Cookies from 'js-cookie';
 import uuid from 'uuid';
 
 import { ROUTES } from '../../server/constants';
@@ -39,6 +40,11 @@ const styles = {
 function Header(props) {
     const { isLoggedIn } = props;
 
+    const handleLogout = () => {
+        Cookies.remove('x-access-token');
+        window.location.reload();
+    };
+
     const renderLoginButton = () => {
         return (
             <Link
@@ -63,6 +69,7 @@ function Header(props) {
                 style={styles.button}
                 variant="contained"
                 color="secondary"
+                onClick={handleLogout}
             >
             Logout
             </Button>

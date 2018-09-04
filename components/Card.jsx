@@ -23,7 +23,7 @@ function Card(props) {
                 <CardHeader
                     avatar={
                         <Avatar aria-label="Recipe">
-                            {`${firstName[0]}.${lastName[0]}`}
+                            {`${firstName[0].toUpperCase()}.${lastName[0].toUpperCase()}`}
                         </Avatar>
                     }
                     action={

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { defaultStateHandler, buildGetUsersUrl } from '../utilities';
+import { buildGetUsersUrl } from '../utilities';
 import fetch from 'isomorphic-unfetch';
 
 import JSSProvider from '../components/JSSProvider';
@@ -40,6 +40,10 @@ export default class Index extends Component {
                 variant: 'success',
             },
         };
+    }
+
+    componentWillMount() {
+        this.timer = null;
     }
 
     static async getInitialProps() {
@@ -103,6 +107,16 @@ export default class Index extends Component {
             });
     }
 
+    handleInputChange = (value) => {
+        clearTimeout(this.timer);
+
+        this.setState({ userName: value });
+
+        this.timer = setTimeout(() => {
+            this.fetchCurrentPageUsers();
+        }, 800);
+    };
+
     closeSnackbar = () => {
         this.setState((prevState) => {
             return {
@@ -134,8 +148,7 @@ export default class Index extends Component {
                     <div className="layout__menu">
                         <Sidebar
                             {...{
-                                defaultStateHandler: defaultStateHandler(this),
-                                fetchCurrentPageUsers: this.fetchCurrentPageUsers,
+                                handleInputChange: this.handleInputChange,
                                 userName,
                             }}
                         />

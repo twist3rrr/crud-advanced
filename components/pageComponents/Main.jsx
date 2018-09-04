@@ -39,12 +39,14 @@ function Main(props) {
                 { mapUsers() }
             </div>
             <div className="main__pagination pagination__container">
-                <Pagination
-                    onChange={current => fetchCurrentPageUsers(current)}
-                    current={currentPage}
-                    total={amountOfUsers}
-                    pageSize={itemsOnPage}
-                />
+                {
+                    !!users.length && <Pagination
+                        onChange={current => fetchCurrentPageUsers(current)}
+                        current={currentPage}
+                        total={amountOfUsers}
+                        pageSize={itemsOnPage}
+                    />
+                }
             </div>
         </div>
     );

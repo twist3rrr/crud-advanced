@@ -9,6 +9,7 @@ import JSSProvider from '../components/JSSProvider';
 import Header from './../components/pageComponents/Header';
 import Main from './../components/pageComponents/Main';
 import Sidebar from './../components/pageComponents/Sidebar';
+import Snackbar from '../components/Snackbar';
 import Spinner from './../components/Spinner';
 
 import '../styles/main.scss';
@@ -32,6 +33,12 @@ export default class Index extends Component {
             currentPage: 1,
             users: props.users,
             userName: '',
+            snackbar: {
+                autohideDuration: 5000,
+                open: false,
+                message: 'Message',
+                variant: 'success',
+            },
         };
     }
 
@@ -51,19 +58,59 @@ export default class Index extends Component {
         return { users, total };
     }
 
-    fetchCurrentPageUsers = async (page) => {
+    fetchCurrentPageUsers = async (page = 1) => {
         this.setState({ isLoading: true });
-        const res = await fetch(buildGetUsersUrl(page, config.itemsOnPage, this.state.userName));
-        console.log(res.status);
-        const parsed = await res.json();
 
-        const { users, total } = parsed;
+        fetch(buildGetUsersUrl(page, config.itemsOnPage, this.state.userName))
+            .then(async (res) => {
+                let users;
+                let total;
 
-        this.setState({
-            amountOfUsers: total,
-            currentPage: page,
-            isLoading: false,
-            users,
+                try {
+                    const parsed = await res.json();
+                    ({ users, total } = parsed);
+                } catch (err) {
+                    return this.setState({
+                        isLoading: false,
+                        users: [],
+                        snackbar: {
+                            autohideDuration: 2000,
+                            open: true,
+                            message: 'Backend error',
+                            variant: 'error',
+                        },
+                    });
+                }
+
+                return this.setState({
+                    amountOfUsers: total,
+                    currentPage: page,
+                    isLoading: false,
+                    users,
+                });
+            })
+            .catch(() => {
+                this.setState({
+                    isLoading: false,
+                    users: [],
+                    snackbar: {
+                        autohideDuration: 2000,
+                        open: true,
+                        message: 'Backend error',
+                        variant: 'error',
+                    },
+                });
+            });
+    }
+
+    closeSnackbar = () => {
+        this.setState((prevState) => {
+            return {
+                snackbar: {
+                    ...prevState.snackbar,
+                    open: false,
+                },
+            };
         });
     }
 
@@ -88,6 +135,7 @@ export default class Index extends Component {
                         <Sidebar
                             {...{
                                 defaultStateHandler: defaultStateHandler(this),
+                                fetchCurrentPageUsers: this.fetchCurrentPageUsers,
                                 userName,
                             }}
                         />
@@ -107,6 +155,10 @@ export default class Index extends Component {
                         />
                     </div>
                     <div className="layout__footer">FOOTER</div>
+                    <Snackbar
+                        {...this.state.snackbar}
+                        onClose={this.closeSnackbar}
+                    />
                     { this.state.isLoading && <Spinner /> }
                 </div>
             </JSSProvider>

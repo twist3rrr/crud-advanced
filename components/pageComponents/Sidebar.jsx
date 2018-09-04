@@ -16,6 +16,7 @@ const styles = {
 function Sidebar(props) {
     const {
         defaultStateHandler,
+        fetchCurrentPageUsers,
         userName,
     } = props;
 
@@ -24,7 +25,7 @@ function Sidebar(props) {
             <InputField
                 label="Filter users"
                 value={userName}
-                onChange={value => defaultStateHandler({ userName: value })}
+                onChange={value => defaultStateHandler({ userName: value }, fetchCurrentPageUsers)}
             />
             <Button
                 color="primary"
@@ -41,6 +42,7 @@ function Sidebar(props) {
 
 Sidebar.propTypes = {
     defaultStateHandler: PropTypes.func.isRequired,
+    fetchCurrentPageUsers: PropTypes.func.isRequired,
     userName: PropTypes.string.isRequired,
 };
 

@@ -8,13 +8,23 @@ const jwt = require('jsonwebtoken');
 
 const getUsersRoute = async (req, res, database) => {
     const usersCollection = database.collection('users');
-    const { page, items } = req.query;
+    const { page, items, name } = req.query;
+
+    const trimmedName = name.trim();
+    const splitedName = trimmedName.split(' ');
+    const firstName = splitedName[0] && splitedName[0].toLowerCase();
+    const lastName = splitedName[1] && splitedName[1].toLowerCase();
+
+    const lookupShape = {
+        ...!!firstName && { firstName: new RegExp(firstName) },
+        ...!!lastName && { lastName: new RegExp(lastName) },
+    };
+
+    const total = await usersCollection.find(lookupShape).count();
 
     const skip = (page - 1) * items;
 
-    const total = await usersCollection.find({}).count();
-
-    usersCollection.find({})
+    usersCollection.find(lookupShape)
         .skip(Number(skip))
         .limit(Number(items))
         .project({ _id: 0 })

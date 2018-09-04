@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
+import { capitalizeFirstLetter } from '../utilities';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -37,7 +38,7 @@ function Card(props) {
                         Delete
                         </Button>
                     }
-                    title={`${firstName} ${lastName}`}
+                    title={`${capitalizeFirstLetter(firstName)} ${capitalizeFirstLetter(lastName)}`}
                     subheader={moment(dateOfBirth).format('MMMM Do YYYY')}
                 />
             </MaterialUICard>

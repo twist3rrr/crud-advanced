@@ -75,12 +75,29 @@ const loginRoute = (req, res, database) => {
 };
 
 const registrationRoute = (req, res, database) => {
-    const { email, password } = req.body;
+    delete req.body.confirmPassword;
+    const {
+        email,
+        dateOfBirth,
+        firstName,
+        gender,
+        isStudent,
+        password,
+        lastName,
+    } = req.body;
     const usersCollection = database.collection('users');
 
     findMatchShape(usersCollection, { email }, (users) => {
         if (!users.length && email && password) {
-            return usersCollection.insertOne({ ...req.body }, (err) => {
+            return usersCollection.insertOne({
+                email,
+                dateOfBirth,
+                gender,
+                isStudent,
+                firstName: firstName.toLowerCase(),
+                password,
+                lastName: lastName.toLowerCase(),
+            }, (err) => {
                 if (err) return res.sendStatus(500);
 
                 return res.sendStatus(200);

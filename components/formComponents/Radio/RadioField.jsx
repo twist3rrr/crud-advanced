@@ -38,7 +38,7 @@ function ReadioField(props) {
 }
 
 ReadioField.propTypes = {
-    color: PropTypes.string.isRequired,
+    color: PropTypes.string,
     defaultChecked: PropTypes.bool,
     disabled: PropTypes.bool,
     label: PropTypes.string,
@@ -48,6 +48,7 @@ ReadioField.propTypes = {
 };
 
 ReadioField.defaultProps = {
+    color: 'primary',
     defaultChecked: false,
     disabled: false,
     id: '',

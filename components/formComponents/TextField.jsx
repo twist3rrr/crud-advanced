@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 
 import { createField, fieldPresets } from 'react-advanced-form';
 import uuid from 'uuid';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
+import { default as MaterialInput } from '@material-ui/core/TextField';
 
 class TextField extends Component {
     render() {
@@ -17,6 +16,7 @@ class TextField extends Component {
             fullWidth,
             id,
             label,
+            margin,
         } = this.props;
 
         const { required, invalid, errors } = fieldState;
@@ -29,9 +29,12 @@ class TextField extends Component {
                     {...{ fullWidth }}
                     {...{ required: !!required }}
                 >
-                    { label && <InputLabel htmlFor={id}>{ label }</InputLabel> }
-                    <Input
-                        id={id}
+                    <MaterialInput
+                        {...{
+                            id,
+                            label,
+                            margin,
+                        }}
                         {...fieldProps}
                     />
                     { !!invalid && errors.map(error => (
@@ -53,12 +56,14 @@ TextField.propTypes = {
         PropTypes.string,
         PropTypes.object,
     ]),
+    margin: PropTypes.string,
 };
 
 TextField.defaultProps = {
     disabled: false,
     fullWidth: true,
     label: null,
+    margin: 'none',
 };
 
 export default createField(fieldPresets.input)(TextField);

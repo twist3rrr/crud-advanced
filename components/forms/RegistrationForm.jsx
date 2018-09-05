@@ -117,12 +117,14 @@ export default function RegistrationForm(props) {
                     defaultChecked
                 />
                 <RadioField
+                    id="man"
                     defaultChecked
                     value="man"
                     name="gender"
                     label="Man"
                 />
                 <RadioField
+                    id="woman"
                     value="woman"
                     name="gender"
                     label="Woman"

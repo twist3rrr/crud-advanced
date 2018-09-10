@@ -13,6 +13,7 @@ function Main(props) {
         amountOfUsers,
         currentPage,
         fetchCurrentPageUsers,
+        isLoggedIn,
         itemsOnPage,
         users,
     } = props;
@@ -21,7 +22,7 @@ function Main(props) {
 
     const mapUsers = () => {
         return isUsers
-            ? users.map(user => <Card {...user} {...{ key: uuid() }} />)
+            ? users.map(user => <Card {...user} {...{ key: uuid(), isLoggedIn }} />)
             : (
                 <Typography
                     variant="title"
@@ -55,9 +56,14 @@ function Main(props) {
 Main.propTypes = {
     amountOfUsers: PropTypes.number.isRequired,
     currentPage: PropTypes.number.isRequired,
+    isLoggedIn: PropTypes.bool,
     itemsOnPage: PropTypes.number.isRequired,
     fetchCurrentPageUsers: PropTypes.func.isRequired,
     users: PropTypes.array.isRequired,
+};
+
+Main.defaultProps = {
+    isLoggedIn: false,
 };
 
 export default Main;

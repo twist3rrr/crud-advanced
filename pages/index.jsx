@@ -165,6 +165,7 @@ export default class Index extends Component {
                                 amountOfUsers,
                                 currentPage,
                                 fetchCurrentPageUsers: this.fetchCurrentPageUsers,
+                                isLoggedIn,
                                 itemsOnPage,
                                 loadedPages,
                                 userName,

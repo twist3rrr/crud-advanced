@@ -19,6 +19,7 @@ import green from '@material-ui/core/colors/green';
 const styles = {
     appBar: {
         borderRadius: '5px',
+        backgroundColor: '#fff',
     },
     button: {
         margin: '5px',
@@ -95,7 +96,7 @@ function Header(props) {
 
     return (
         <div>
-            <AppBar style={styles.appBar} position="static" color="default">
+            <AppBar style={styles.appBar} position="static">
                 <Toolbar style={styles.toolbar}>
                     <Avatar style={styles.logo}>
                         <FolderIcon />

@@ -12,12 +12,13 @@ import { Form } from 'react-advanced-form';
 import validationMessages from '../../validation/validationMessages';
 import validationRules from '../../validation/validationRules';
 // Custom fields
-// import RadioField from '../formComponents/Radio/RadioField';
 import RadioField from '../formComponents/Radio/RadioField';
 import SwitchField from '../formComponents/SwitchField';
 import TextField from '../formComponents/TextField';
 // Constants
 import { ROUTES } from '../../server/constants';
+// Utilities
+import { capitalizeFirstLetter } from './../../utilities';
 
 function RegistrationForm(props) {
     const { defaultStateHandler } = props;
@@ -89,14 +90,14 @@ function RegistrationForm(props) {
                 <TextField
                     required
                     id="firstName"
-                    initialValue={initialValues.firstName}
+                    initialValue={capitalizeFirstLetter(initialValues.firstName)}
                     label="First Name"
                     name="firstName"
                 />
                 <TextField
                     required
                     id="lastName"
-                    initialValue={initialValues.lastName}
+                    initialValue={capitalizeFirstLetter(initialValues.lastName)}
                     label="Last Name"
                     name="lastName"
                 />

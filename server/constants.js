@@ -6,8 +6,9 @@ const DB_LINK = 'mongodb://crud-advanced-user:1q2w3e4r5t@ds147450.mlab.com:47450
 const DB_NAME = 'crud-advanced';
 const PAGES_WITHOUT_LOGIN = ['_next', '/login', '/registration', '/getusers', 'auth'];
 const PORT = 3000;
-const DOMEN = 'localhost:3000';
+const DOMEN = 'localhost:' + PORT;
 const ROUTES = {
+    CORRECTION: '/correction',
     DELETE_USER: '/deleteuser',
     GET_USERS: '/getusers',
     USERS: '/',

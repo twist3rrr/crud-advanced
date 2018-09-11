@@ -38,13 +38,18 @@ const getUsersRoute = async (req, res, database) => {
 const deleteUserRoute = (req, res, database) => {
     const { email } = req.body;
     const usersCollection = database.collection('users');
+    const token = req.cookies[AUTH_TOKEN_NAME];
 
-    usersCollection.findOneAndDelete({ email }, (err, result) => {
-        if (err) return res.sendStatus(400);
+    const authData = { email, token, key: AUTH_TOKEN_KEY };
 
-        if (result.value === null) return res.sendStatus(500);
+    currentUserIsLoggedIn(authData, res, () => {
+        usersCollection.findOneAndDelete({ email }, (err, result) => {
+            if (err) return res.sendStatus(400);
 
-        return res.sendStatus(200);
+            if (result.value === null) return res.sendStatus(500);
+
+            return res.sendStatus(200);
+        });
     });
 };
 

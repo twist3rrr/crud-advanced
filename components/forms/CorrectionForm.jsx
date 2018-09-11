@@ -22,14 +22,15 @@ import { capitalizeFirstLetter } from './../../utilities';
 
 function RegistrationForm(props) {
     const { defaultStateHandler } = props;
+    const initialValues = props.router.query;
 
-    function updateSuccessHandler() {
+    function successHandler(message) {
         defaultStateHandler({
             isLoading: false,
             snackbar: {
                 autohideDuration: 2000,
                 open: true,
-                message: 'You are successfully updated user info',
+                message,
                 variant: 'success',
             },
         }, () => {
@@ -39,13 +40,13 @@ function RegistrationForm(props) {
         });
     }
 
-    function updateFailureHandler() {
+    function failureHandler(message) {
         defaultStateHandler({
             isLoading: false,
             snackbar: {
                 autohideDuration: 2000,
                 open: true,
-                message: 'You didn\'t update user info',
+                message,
                 variant: 'error',
             },
         });
@@ -61,11 +62,29 @@ function RegistrationForm(props) {
         })
             .then((res) => {
                 (res.status === 200)
-                    ? updateSuccessHandler()
-                    : updateFailureHandler();
+                    ? successHandler('User info is succesfully updated')
+                    : failureHandler('Some error occured while updating user info');
             })
             .catch(() => {
-                updateFailureHandler();
+                failureHandler('Some error occured while updating user info');
+            });
+    }
+
+    function deleteUser() {
+        fetch(ROUTES.DELETE_USER, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({ email: initialValues.email }),
+        })
+            .then((res) => {
+                (res.status === 200)
+                    ? successHandler('User is succesfully deleted')
+                    : failureHandler('Some error occured while deleting user');
+            })
+            .catch(() => {
+                failureHandler('Some error occured while deleting user');
             });
     }
 
@@ -75,7 +94,11 @@ function RegistrationForm(props) {
         updateUser(serialized);
     }
 
-    const initialValues = props.router.query;
+    function onDeleteClick() {
+        defaultStateHandler({ isLoading: true });
+
+        deleteUser();
+    }
 
     return (
         <div>
@@ -166,8 +189,9 @@ function RegistrationForm(props) {
                     color="secondary"
                     fullWidth
                     style={{ marginTop: 20 }}
-                    type="submit"
+                    type="button"
                     variant="contained"
+                    onClick={onDeleteClick}
                 >
                     Remove account
                     <Icon style={{ marginLeft: 10 }}>delete</Icon>

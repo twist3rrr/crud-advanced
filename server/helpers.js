@@ -1,3 +1,21 @@
+const jwt = require('jsonwebtoken');
+
+function currentUserIsLoggedIn(authData, res, next) {
+    const { email, token, key } = authData;
+
+    jwt.verify(token, key, (err, decoded) => {
+        if (err) return res.sendStatus(400);
+        console.log('verifying in process');
+
+        if (decoded.data === email.trim(' ')) {
+            console.log('verified');
+            next();
+        } else {
+            return res.sendStatus(400);
+        }
+    });
+}
+
 function unless(paths, middleware) {
     return (req, res, next) => {
         let isHave = false;
@@ -24,6 +42,7 @@ function findMatchShape(collection, shape, next) {
 }
 
 module.exports = {
+    currentUserIsLoggedIn,
     findMatchShape,
     unless,
 };

@@ -16,7 +16,8 @@
         "import/no-extraneous-dependencies": ["error", {
             "devDependencies": true
         }],
-        "no-unused-expressions": 0
+        "no-unused-expressions": 0,
+        "linebreak-style": 0
     },
     "globals": { "fetch": false }
 }

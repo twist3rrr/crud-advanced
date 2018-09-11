@@ -3,7 +3,7 @@ const {
     AUTH_TOKEN_NAME,
 } = require('./constants');
 
-const { findMatchShape } = require('./helpers');
+const { currentUserIsLoggedIn, findMatchShape } = require('./helpers');
 const jwt = require('jsonwebtoken');
 
 const getUsersRoute = async (req, res, database) => {
@@ -51,11 +51,15 @@ const deleteUserRoute = (req, res, database) => {
 const updateUserRoute = (req, res, database) => {
     const { email } = req.body;
     const usersCollection = database.collection('users');
+    const token = req.cookies[AUTH_TOKEN_NAME];
 
-    usersCollection.findOneAndUpdate({ email }, { $set: { ...req.body } }, (err, result) => {
-        if (err || result.value === null) return res.sendStatus(400);
+    const authData = { email, token, key: AUTH_TOKEN_KEY };
 
-        return res.sendStatus(200);
+    currentUserIsLoggedIn(authData, res, () => {
+        usersCollection.findOneAndUpdate({ email }, { $set: { ...req.body } }, (err, result) => {
+            if (err || result.value === null) return res.sendStatus(400);
+            return res.sendStatus(200);
+        });
     });
 };
 

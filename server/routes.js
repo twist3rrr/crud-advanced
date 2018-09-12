@@ -1,4 +1,5 @@
 const {
+    AUTH_EMAIL_NAME,
     AUTH_TOKEN_KEY,
     AUTH_TOKEN_NAME,
 } = require('./constants');
@@ -79,6 +80,7 @@ const loginRoute = (req, res, database) => {
 
         return res
             .cookie(AUTH_TOKEN_NAME, token, { maxAge: 31536000000, httpOnly: false })
+            .cookie(AUTH_EMAIL_NAME, email, { maxAge: 31536000000, httpOnly: false })
             .sendStatus(200);
     });
 };

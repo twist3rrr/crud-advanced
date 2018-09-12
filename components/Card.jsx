@@ -7,11 +7,12 @@ import Avatar from '@material-ui/core/Avatar';
 import { default as MaterialUICard } from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 // Utilities
+import Cookies from 'js-cookie';
 import url from 'url';
 import moment from 'moment';
 import { capitalizeFirstLetter } from '../utilities';
 // Constants
-import { ROUTES, DOMEN } from '../server/constants';
+import { DOMEN, AUTH_EMAIL_NAME, ROUTES } from '../server/constants';
 
 function Card(props) {
     const {
@@ -41,11 +42,22 @@ function Card(props) {
         Router.push(targetUrl);
     };
 
+    const isCurrentUser = (email === Cookies.get(AUTH_EMAIL_NAME));
+
+    const currentUserStyles =
+        (isLoggedIn && isCurrentUser)
+            ? {
+                cursor: 'pointer',
+                backgroundColor: '#4caf50',
+            }
+            : null;
+
+
     return (
         <div className="main__item">
             <MaterialUICard
-                style={{ cursor: isLoggedIn && 'pointer' }}
-                onClick={isLoggedIn && onCardClick}
+                style={currentUserStyles}
+                onClick={isLoggedIn && isCurrentUser && onCardClick}
             >
                 <CardHeader
                     avatar={

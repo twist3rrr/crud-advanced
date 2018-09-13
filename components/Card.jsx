@@ -6,6 +6,7 @@ import Router from 'next/router';
 import Avatar from '@material-ui/core/Avatar';
 import { default as MaterialUICard } from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import Tooltip from '@material-ui/core/Tooltip';
 // Utilities
 import Cookies from 'js-cookie';
 import url from 'url';
@@ -62,7 +63,9 @@ function Card(props) {
                 <CardHeader
                     avatar={
                         <Avatar style={{ overflow: 'visible' }}>
-                            <span className={`badge ${isStudent ? 'badge--success' : 'badge--error'}`} />
+                            <Tooltip title={`is ${isStudent ? '' : 'not '}a student`}>
+                                <span className={`badge ${isStudent ? 'badge--success' : 'badge--error'}`} />
+                            </Tooltip>
                             {`${firstName[0].toUpperCase()}.${lastName[0].toUpperCase()}`}
                         </Avatar>
                     }

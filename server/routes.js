@@ -55,14 +55,20 @@ const deleteUserRoute = (req, res, database) => {
 };
 
 const updateUserRoute = (req, res, database) => {
-    const { email } = req.body;
+    const { email, firstName, lastName } = req.body;
     const usersCollection = database.collection('users');
     const token = req.cookies[AUTH_TOKEN_NAME];
 
     const authData = { email, token, key: AUTH_TOKEN_KEY };
 
     currentUserIsLoggedIn(authData, res, () => {
-        usersCollection.findOneAndUpdate({ email }, { $set: { ...req.body } }, (err, result) => {
+        usersCollection.findOneAndUpdate({ email }, {
+            $set: {
+                ...req.body,
+                firstName: firstName.toLowerCase(),
+                lastName: lastName.toLowerCase(),
+            },
+        }, (err, result) => {
             if (err || result.value === null) return res.sendStatus(400);
             return res.sendStatus(200);
         });

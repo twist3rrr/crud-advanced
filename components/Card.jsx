@@ -61,7 +61,8 @@ function Card(props) {
             >
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Recipe">
+                        <Avatar style={{ overflow: 'visible' }}>
+                            <span className={`badge ${isStudent ? 'badge--success' : 'badge--error'}`} />
                             {`${firstName[0].toUpperCase()}.${lastName[0].toUpperCase()}`}
                         </Avatar>
                     }

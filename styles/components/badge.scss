@@ -1,0 +1,25 @@
+.badge {
+    $size: 8px;
+
+    position: absolute;
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    background-color: blue;
+
+    &--right {
+        left: 100%;
+        transform: translate(+50%, -50%)
+    }
+
+    &--success {
+        background-color: green;
+    }
+
+    &--error {
+        background-color: red;
+    }
+}

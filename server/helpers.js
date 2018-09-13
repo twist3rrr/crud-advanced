@@ -5,10 +5,8 @@ function currentUserIsLoggedIn(authData, res, next) {
 
     jwt.verify(token, key, (err, decoded) => {
         if (err) return res.sendStatus(400);
-        console.log('verifying in process');
 
         if (decoded.data === email.trim(' ')) {
-            console.log('verified');
             next();
         } else {
             return res.sendStatus(400);

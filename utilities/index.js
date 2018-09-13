@@ -1,10 +1,17 @@
 import url from 'url';
-import { DOMEN, ROUTES } from '../server/constants';
+import Cookies from 'js-cookie';
+
+import { DOMEN, ROUTES, AUTH_TOKEN_NAME, AUTH_EMAIL_NAME } from '../server/constants';
 
 export const defaultStateHandler = _this => (newState, callback) => {
     _this.setState({
         ...newState,
     }, callback);
+};
+
+export const deleteAuthCookies = () => {
+    Cookies.remove(AUTH_TOKEN_NAME);
+    Cookies.remove(AUTH_EMAIL_NAME);
 };
 
 export const buildGetUsersUrl = (page, items, name) => {

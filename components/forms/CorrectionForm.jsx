@@ -18,7 +18,7 @@ import TextField from '../formComponents/TextField';
 // Constants
 import { ROUTES } from '../../server/constants';
 // Utilities
-import { capitalizeFirstLetter } from './../../utilities';
+import { capitalizeFirstLetter, deleteAuthCookies } from './../../utilities';
 
 function RegistrationForm(props) {
     const { defaultStateHandler } = props;
@@ -70,6 +70,11 @@ function RegistrationForm(props) {
             });
     }
 
+    function deleteUserSuccessHandler() {
+        successHandler('User is succesfully deleted');
+        deleteAuthCookies();
+    }
+
     function deleteUser() {
         fetch(ROUTES.DELETE_USER, {
             headers: {
@@ -80,7 +85,7 @@ function RegistrationForm(props) {
         })
             .then((res) => {
                 (res.status === 200)
-                    ? successHandler('User is succesfully deleted')
+                    ? deleteUserSuccessHandler()
                     : failureHandler('Some error occured while deleting user');
             })
             .catch(() => {

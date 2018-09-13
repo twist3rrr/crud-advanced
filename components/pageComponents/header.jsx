@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Link from 'next/link';
-import Cookies from 'js-cookie';
 import uuid from 'uuid';
 
 import { ROUTES } from '../../server/constants';
@@ -15,6 +14,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 import green from '@material-ui/core/colors/green';
+
+import { deleteAuthCookies } from '../../utilities';
 
 const styles = {
     appBar: {
@@ -42,7 +43,7 @@ function Header(props) {
     const { isLoggedIn } = props;
 
     const handleLogout = () => {
-        Cookies.remove('x-access-token');
+        deleteAuthCookies();
         window.location.reload();
     };
 

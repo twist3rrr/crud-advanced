@@ -19,5 +19,8 @@
         "no-unused-expressions": 0,
         "linebreak-style": 0
     },
-    "globals": { "fetch": false }
+    "globals": { 
+        "fetch": false,
+        "window": false
+    }
 }

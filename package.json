@@ -9,10 +9,9 @@
     "npm": "6.4.1"
   },
   "scripts": {
-    "start": "next build && nodemon server/server.js",
+    "start": "node server/server.js",
     "dev": "next",
     "build-dev": "next build",
-    "start-dev": "next start",
     "heroku-postbuild": "next build"
   },
   "repository": {

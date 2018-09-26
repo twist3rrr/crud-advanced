@@ -12,7 +12,8 @@
     "start": "next build && nodemon server/server.js",
     "dev": "next",
     "build-dev": "next build",
-    "start-dev": "next start"
+    "start-dev": "next start",
+    "heroku-postbuild": "next build && nodemon server/server.js"
   },
   "repository": {
     "type": "git",

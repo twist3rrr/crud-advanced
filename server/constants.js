@@ -6,8 +6,8 @@ const AUTH_EMAIL_NAME = 'x-access-email';
 const DB_LINK = 'mongodb://crud-advanced-user:1q2w3e4r5t@ds147450.mlab.com:47450/crud-advanced';
 const DB_NAME = 'crud-advanced';
 const PAGES_WITHOUT_LOGIN = ['_next', '/login', '/registration', '/getusers', 'auth'];
-const PORT = 3000;
-const DOMEN = `crud-advanced.herokuapp.com:${PORT}`;
+const PORT = process.env.PORT || 3000;
+const DOMEN = 'crud-advanced.herokuapp.com';
 const ROUTES = {
     CORRECTION: '/correction',
     DELETE_USER: '/deleteuser',

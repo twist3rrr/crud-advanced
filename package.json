@@ -2,7 +2,7 @@
   "name": "crud-advanced",
   "version": "1.0.0",
   "description": "CRUD application with usage of: NEXT.js Mongo.DB JWT React 16.3 Material UI",
-  "main": "index.js",
+  "main": "./server/server.js",
   "engines": {
     "node": "8.12.0",
     "yarn": "1.9.4",
@@ -13,7 +13,7 @@
     "dev": "next",
     "build-dev": "next build",
     "start-dev": "next start",
-    "heroku-postbuild": "next build && nodemon server/server.js"
+    "heroku-postbuild": "next build"
   },
   "repository": {
     "type": "git",

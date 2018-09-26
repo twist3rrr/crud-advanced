@@ -17,7 +17,7 @@ export const deleteAuthCookies = () => {
 export const buildGetUsersUrl = (page, items, name) => {
     return url.format({
         pathname: ROUTES.GET_USERS,
-        protocol: 'http:',
+        protocol: 'https:',
         host: DOMEN,
         query: {
             page,

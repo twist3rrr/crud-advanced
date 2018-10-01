@@ -5748,7 +5748,7 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-advanced-form@^1.3.3:
+react-advanced-form@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/react-advanced-form/-/react-advanced-form-1.5.0.tgz#5e87faede2c80ccec278765bb1949c2609c87cbe"
   dependencies:

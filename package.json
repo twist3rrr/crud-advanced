@@ -56,7 +56,11 @@
     "precss": "^3.1.2",
     "rc-pagination": "^1.17.0",
     "react": "^16.4.0",
+<<<<<<< HEAD
     "react-advanced-form": "^1.5.0",
+=======
+    "react-advanced-form": "1.5.0",
+>>>>>>> 6ca48a83a0c9db5ee32a61b336b859516fd832ae
     "react-dom": "^16.4.0",
     "react-paginate": "^5.2.4",
     "uuid": "^3.3.2"
